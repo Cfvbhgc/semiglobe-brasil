@@ -15,6 +15,9 @@ const About: React.FC<AboutProps> = ({ lang }) => {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     const ctx = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>('.about__text').forEach((el) => {
         gsap.fromTo(el,

@@ -15,6 +15,9 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
   const ctaRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     tl.fromTo(titleRef.current, { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 1.4 })

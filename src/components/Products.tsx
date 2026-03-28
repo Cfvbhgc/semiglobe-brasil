@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import translations, { Lang } from '../i18n';
@@ -18,14 +18,25 @@ const productImages = [
   '/images/packaging.jpg',
 ];
 
-// Horizontal scroll section pinned with GSAP ScrollTrigger
+// Horizontal scroll on desktop, vertical stack on mobile
 function Products({ lang }: ProductsProps) {
   const t = translations[lang].products;
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    // Check initial screen size
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const mm = gsap.matchMedia();
+
+    mm.add('(min-width: 769px)', () => {
+      if (prefersReducedMotion) return;
+
       const track = trackRef.current;
       if (!track) return;
 
@@ -43,28 +54,56 @@ function Products({ lang }: ProductsProps) {
         },
       });
 
-      // Fade in each card as it enters viewport
-      gsap.utils.toArray<HTMLElement>('.products__card').forEach((card, i) => {
+      // Fade in each card
+      gsap.utils.toArray<HTMLElement>('.products__card').forEach((card) => {
         gsap.fromTo(card,
           { opacity: 0, y: 30 },
           {
             opacity: 1, y: 0, duration: 0.6,
             scrollTrigger: {
               trigger: card,
-              containerAnimation: gsap.getById?.('horizontalScroll') || undefined,
               start: 'left 80%',
               toggleActions: 'play none none reverse',
             },
           }
         );
       });
-    }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    mm.add('(max-width: 768px)', () => {
+      if (prefersReducedMotion) return;
+
+      // Simple fade-in for each card on mobile
+      gsap.utils.toArray<HTMLElement>('.products__card').forEach((card) => {
+        gsap.fromTo(card,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1, y: 0, duration: 0.6,
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+      });
+    });
+
+    const handleResize = () => checkMobile();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      mm.revert();
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
-    <section className="products" id="products" ref={sectionRef}>
+    <section
+      className={`products ${isMobile ? 'products--mobile' : 'products--desktop'}`}
+      id="products"
+      ref={sectionRef}
+    >
       <div className="products__track" ref={trackRef}>
         <div className="products__intro">
           <h2 className="products__heading">{t.heading}</h2>

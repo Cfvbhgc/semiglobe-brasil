@@ -29,6 +29,7 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+  object-fit: cover;
 }
 
 button {
@@ -104,6 +105,44 @@ a {
 .nav__lang:hover {
   background: #c9a96e;
   color: #1a0f0a;
+}
+
+/* Burger button — hidden on desktop */
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  z-index: 1100;
+}
+
+.nav__burger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #f5efe6;
+  border-radius: 1px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav__burger--open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav__burger--open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__burger--open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mobile overlay menu */
+.nav__overlay {
+  display: none;
 }
 
 /* --- Hero Section --- */
@@ -185,12 +224,13 @@ a {
   position: relative;
   z-index: 2;
   text-align: center;
+  padding: 0 1rem;
 }
 
 .hero__title {
   font-family: 'Syne', sans-serif;
   font-weight: 900;
-  font-size: clamp(4rem, 10vw, 10rem);
+  font-size: clamp(3rem, 10vw, 10rem);
   letter-spacing: 0.05em;
   line-height: 0.9;
   color: #f5efe6;
@@ -216,7 +256,7 @@ a {
 }
 
 .hero__tagline {
-  font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+  font-size: clamp(0.75rem, 1.5vw, 1.1rem);
   font-weight: 300;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -229,7 +269,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 1.2vw, 0.85rem);
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -256,7 +296,7 @@ a {
 
 /* --- About Section --- */
 .about {
-  padding: 10rem 3rem;
+  padding: clamp(4rem, 8vw, 10rem) clamp(1.25rem, 3vw, 3rem);
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -264,21 +304,21 @@ a {
 .about__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6rem;
+  gap: clamp(2rem, 5vw, 6rem);
   align-items: start;
 }
 
 .about__heading {
   font-family: 'Syne', sans-serif;
   font-weight: 700;
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(1.75rem, 4vw, 3.5rem);
   letter-spacing: 0.05em;
   color: #c9a96e;
-  margin-bottom: 3rem;
+  margin-bottom: clamp(1.5rem, 3vw, 3rem);
 }
 
 .about__text {
-  font-size: 1.05rem;
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
   line-height: 1.85;
   opacity: 0.85;
   margin-bottom: 1.5rem;
@@ -306,54 +346,83 @@ a {
 .about__quote {
   font-family: 'Instrument Serif', serif;
   font-style: italic;
-  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  font-size: clamp(1.1rem, 2.5vw, 2rem);
   line-height: 1.5;
   color: #c9a96e;
   border-left: 2px solid rgba(201, 169, 110, 0.4);
   padding-left: 1.5rem;
 }
 
-/* --- Products Section (Horizontal Scroll) --- */
+/* --- Products Section (Horizontal Scroll on desktop / Vertical on mobile) --- */
 .products {
-  height: 100vh;
   overflow: hidden;
   background: #0d0705;
+}
+
+.products--desktop {
+  height: 100vh;
 }
 
 .products__track {
   display: flex;
   align-items: center;
-  height: 100vh;
   gap: 4rem;
   padding: 0 4rem;
   will-change: transform;
 }
 
+.products--desktop .products__track {
+  height: 100vh;
+}
+
+.products--mobile .products__track {
+  flex-direction: column;
+  align-items: stretch;
+  padding: clamp(4rem, 8vw, 6rem) clamp(1.25rem, 3vw, 2rem);
+  gap: 2rem;
+}
+
 .products__intro {
   flex-shrink: 0;
-  width: 40vw;
-  min-width: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.products--desktop .products__intro {
+  width: 40vw;
+  min-width: 300px;
+}
+
+.products--mobile .products__intro {
+  width: 100%;
+  padding: 0 0 1rem;
+}
+
 .products__heading {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
-  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-size: clamp(2rem, 5vw, 5rem);
   letter-spacing: 0.05em;
   color: #c9a96e;
 }
 
 .products__card {
   flex-shrink: 0;
-  width: 380px;
   background: rgba(245, 239, 230, 0.03);
   border: 1px solid rgba(201, 169, 110, 0.12);
   border-radius: 4px;
   overflow: hidden;
   transition: border-color 0.4s;
+}
+
+.products--desktop .products__card {
+  width: 380px;
+}
+
+.products--mobile .products__card {
+  width: 100%;
+  flex-shrink: 1;
 }
 
 .products__card:hover {
@@ -379,7 +448,7 @@ a {
 }
 
 .products__card-info {
-  padding: 2rem;
+  padding: clamp(1.25rem, 2vw, 2rem);
 }
 
 .products__card-number {
@@ -394,13 +463,13 @@ a {
 .products__card-name {
   font-family: 'Syne', sans-serif;
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
   margin: 0.75rem 0;
   letter-spacing: 0.02em;
 }
 
 .products__card-desc {
-  font-size: 0.9rem;
+  font-size: clamp(0.85rem, 1vw, 0.9rem);
   line-height: 1.7;
   opacity: 0.65;
   font-weight: 300;
@@ -410,20 +479,32 @@ a {
 .products__card-price {
   font-family: 'Syne', sans-serif;
   font-weight: 600;
-  font-size: 1.15rem;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
   color: #c9a96e;
 }
 
 /* --- Philosophy Section (Pinned with changing backgrounds) --- */
 .philosophy {
   position: relative;
-  height: 100vh;
   overflow: hidden;
+}
+
+.philosophy--desktop {
+  height: 100vh;
+}
+
+.philosophy--mobile {
+  height: auto;
 }
 
 .philosophy__backgrounds {
   position: absolute;
   inset: 0;
+}
+
+.philosophy--mobile .philosophy__backgrounds {
+  position: relative;
+  height: 300px;
 }
 
 .philosophy__bg-panel {
@@ -451,30 +532,38 @@ a {
 .philosophy__content {
   position: relative;
   z-index: 2;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 4rem;
+  padding: clamp(2rem, 4vw, 4rem);
   max-width: 900px;
   margin: 0 auto;
+}
+
+.philosophy--desktop .philosophy__content {
+  height: 100%;
+}
+
+.philosophy--mobile .philosophy__content {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .philosophy__heading {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(1.75rem, 4vw, 3.5rem);
   letter-spacing: 0.1em;
   color: #c9a96e;
-  margin-bottom: 3rem;
+  margin-bottom: clamp(1.5rem, 3vw, 3rem);
 }
 
 .philosophy__line {
   font-family: 'Instrument Serif', serif;
   font-style: italic;
-  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  font-size: clamp(1rem, 2vw, 1.6rem);
   line-height: 1.8;
   margin-bottom: 2rem;
   opacity: 0.9;
@@ -482,7 +571,7 @@ a {
 
 /* --- Contact Section (Split Screen) --- */
 .contact {
-  padding: 10rem 3rem;
+  padding: clamp(4rem, 8vw, 10rem) clamp(1.25rem, 3vw, 3rem);
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -490,14 +579,14 @@ a {
 .contact__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6rem;
+  gap: clamp(2rem, 5vw, 6rem);
   align-items: start;
 }
 
 .contact__heading {
   font-family: 'Syne', sans-serif;
   font-weight: 700;
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(1.75rem, 4vw, 3.5rem);
   letter-spacing: 0.05em;
   color: #c9a96e;
   margin-bottom: 2rem;
@@ -508,7 +597,7 @@ a {
 }
 
 .contact__info p {
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
   line-height: 2;
   opacity: 0.7;
   font-weight: 300;
@@ -537,7 +626,7 @@ a {
   width: 100%;
   padding: 1rem 0;
   font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
   font-weight: 300;
   color: #f5efe6;
   background: transparent;
@@ -546,6 +635,7 @@ a {
   outline: none;
   transition: border-color 0.3s;
   resize: none;
+  min-height: 44px;
 }
 
 .contact__field input::placeholder,
@@ -562,7 +652,7 @@ a {
 .contact__submit {
   align-self: flex-start;
   padding: 0.9rem 3rem;
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 1vw, 0.85rem);
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -571,6 +661,7 @@ a {
   border: 1px solid #c9a96e;
   transition: all 0.4s ease;
   margin-top: 1rem;
+  min-height: 44px;
 }
 
 .contact__submit:hover {
@@ -581,7 +672,7 @@ a {
 /* --- Footer --- */
 .footer {
   border-top: 1px solid rgba(201, 169, 110, 0.1);
-  padding: 3rem;
+  padding: clamp(1.5rem, 3vw, 3rem);
 }
 
 .footer__inner {
@@ -609,18 +700,152 @@ a {
 .footer__tagline {
   font-family: 'Instrument Serif', serif;
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
   opacity: 0.5;
 }
 
 .footer__rights {
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 0.9vw, 0.8rem);
   opacity: 0.4;
   font-weight: 300;
 }
 
-/* --- Responsive --- */
-@media (max-width: 900px) {
+/* ============================================================
+   RESPONSIVE — Mobile (< 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Navigation: burger menu */
+  .nav {
+    padding: 1rem 1.25rem;
+  }
+
+  .nav__links {
+    display: none;
+  }
+
+  .nav__burger {
+    display: flex;
+  }
+
+  /* Fullscreen overlay */
+  .nav__overlay {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    background: rgba(26, 15, 10, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .nav__overlay--open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .nav__overlay-link {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #f5efe6;
+    opacity: 0.8;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s, color 0.3s;
+  }
+
+  .nav__overlay-link:hover {
+    opacity: 1;
+    color: #c9a96e;
+  }
+
+  .nav__overlay-lang {
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 0.6rem 2rem;
+    border: 1px solid #c9a96e;
+    color: #c9a96e;
+    border-radius: 2px;
+    background: none;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .nav__overlay-lang:hover {
+    background: #c9a96e;
+    color: #1a0f0a;
+  }
+
+  /* Hero: light streaks simplified */
+  .hero__streak--3,
+  .hero__streak--4 {
+    display: none;
+  }
+
+  .hero__streak--1,
+  .hero__streak--2 {
+    opacity: 0.5;
+  }
+
+  .hero__title {
+    letter-spacing: 0.02em;
+  }
+
+  /* About grid: one column */
+  .about__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about__image img {
+    height: 250px;
+  }
+
+  /* Products: vertical stack (class toggled in component) */
+  .products__card-image {
+    height: 220px;
+  }
+
+  /* Contact grid: one column */
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact__submit {
+    align-self: stretch;
+    text-align: center;
+  }
+
+  .contact__image img {
+    height: 200px;
+  }
+
+  /* Footer */
+  .footer__inner {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .footer__brand {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Tablet adjustments (769px - 900px) */
+@media (min-width: 769px) and (max-width: 900px) {
   .nav {
     padding: 1rem 1.5rem;
   }
@@ -631,20 +856,6 @@ a {
 
   .nav__link {
     font-size: 0.75rem;
-  }
-
-  .about__grid,
-  .contact__grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .about {
-    padding: 6rem 1.5rem;
-  }
-
-  .contact {
-    padding: 6rem 1.5rem;
   }
 
   .products__card {
@@ -658,43 +869,23 @@ a {
   .products__intro {
     width: 80vw;
   }
-
-  .footer__inner {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
-
-  .footer__brand {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
 }
 
-@media (max-width: 600px) {
-  .nav__links {
-    gap: 0.6rem;
+/* ============================================================
+   prefers-reduced-motion — disable animations
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .hero__streak {
+    animation: none !important;
   }
 
-  .nav__link {
-    font-size: 0.65rem;
-    letter-spacing: 0.05em;
+  .hero__cta-arrow {
+    animation: none !important;
   }
 
-  .hero__title {
-    letter-spacing: 0.02em;
-  }
-
-  .products__track {
-    padding: 0 2rem;
-    gap: 2rem;
-  }
-
-  .products__card {
-    width: 260px;
-  }
-
-  .philosophy__content {
-    padding: 2rem;
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

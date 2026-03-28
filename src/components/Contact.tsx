@@ -9,13 +9,16 @@ interface ContactProps {
   lang: Lang;
 }
 
-// Split-screen contact form
+// Split-screen contact form (one column on mobile)
 function Contact({ lang }: ContactProps) {
   const t = translations[lang].contact;
   const sectionRef = useRef<HTMLElement>(null);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     const ctx = gsap.context(() => {
       gsap.fromTo('.contact__left',
         { x: -60, opacity: 0 },
@@ -38,7 +41,6 @@ function Contact({ lang }: ContactProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Form submission placeholder
     alert(lang === 'pt' ? 'Mensagem enviada!' : 'Message sent!');
     setForm({ name: '', email: '', message: '' });
   };
