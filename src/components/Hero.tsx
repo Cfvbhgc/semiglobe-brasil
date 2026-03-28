@@ -31,7 +31,15 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
   };
 
   return (
-    <section className="hero" ref={sectionRef}>
+    <section
+      className="hero"
+      ref={sectionRef}
+      style={{
+        backgroundImage: `linear-gradient(rgba(26,15,10,0.7), rgba(26,15,10,0.9)), url(${process.env.PUBLIC_URL}/images/hero-bg.jpg)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       {/* Animated light streaks */}
       <div className="hero__streaks">
         <div className="hero__streak hero__streak--1" />

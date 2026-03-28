@@ -154,7 +154,7 @@ a {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #0d0705;
+  background: #1a0f0a;
 }
 
 /* Animated light streaks */
@@ -230,13 +230,15 @@ a {
 .hero__title {
   font-family: 'Syne', sans-serif;
   font-weight: 900;
-  font-size: clamp(3rem, 10vw, 10rem);
+  font-size: clamp(2.5rem, 8vw, 8rem);
   letter-spacing: 0.05em;
   line-height: 0.9;
   color: #f5efe6;
   mix-blend-mode: difference;
   width: 100%;
+  max-width: 100%;
   overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .hero__subtitle {
@@ -356,7 +358,7 @@ a {
 /* --- Products Section (Horizontal Scroll on desktop / Vertical on mobile) --- */
 .products {
   overflow: hidden;
-  background: #0d0705;
+  background: #1a0f0a;
 }
 
 .products--desktop {
@@ -708,6 +710,20 @@ a {
   font-size: clamp(0.7rem, 0.9vw, 0.8rem);
   opacity: 0.4;
   font-weight: 300;
+}
+
+/* --- Fullbleed Photo Dividers --- */
+.divider-photo {
+  width: 100%;
+  height: 50vh;
+  overflow: hidden;
+}
+
+.divider-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* ============================================================
