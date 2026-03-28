@@ -190,11 +190,13 @@ a {
 .hero__title {
   font-family: 'Syne', sans-serif;
   font-weight: 900;
-  font-size: clamp(4rem, 12vw, 12rem);
+  font-size: clamp(4rem, 10vw, 10rem);
   letter-spacing: 0.05em;
   line-height: 0.9;
   color: #f5efe6;
   mix-blend-mode: difference;
+  width: 100%;
+  overflow-wrap: break-word;
 }
 
 .hero__subtitle {
@@ -430,6 +432,10 @@ a {
   background-size: cover;
   background-position: center;
   will-change: opacity;
+}
+
+.philosophy__bg-panel {
+  opacity: 0;
 }
 
 .philosophy__bg-panel:first-child {

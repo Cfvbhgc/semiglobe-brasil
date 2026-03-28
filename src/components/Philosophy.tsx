@@ -24,47 +24,38 @@ const Philosophy: React.FC<PhilosophyProps> = ({ lang }) => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const panels = gsap.utils.toArray<HTMLElement>('.philosophy__bg-panel');
+      const lines = gsap.utils.toArray<HTMLElement>('.philosophy__line');
+      const totalPanels = panels.length;
 
-      // Pin the entire section
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: () => `+=${panels.length * 100}%`,
-        pin: true,
-        pinSpacing: true,
+      // Create a single timeline pinned to the section
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: () => `+=${totalPanels * 100}%`,
+          pin: true,
+          pinSpacing: true,
+          scrub: true,
+        },
       });
 
-      // Crossfade backgrounds
+      // Crossfade backgrounds — each transition takes 1 unit, total = totalPanels - 1 transitions
       panels.forEach((panel, i) => {
-        if (i === 0) return; // first panel already visible
-
-        gsap.fromTo(panel,
+        if (i === 0) return;
+        tl.fromTo(panel,
           { opacity: 0 },
-          {
-            opacity: 1,
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: () => `top+=${i * (100 / panels.length)}% top`,
-              end: () => `top+=${(i + 0.5) * (100 / panels.length)}% top`,
-              scrub: true,
-            },
-          }
+          { opacity: 1, duration: 1 },
+          i - 1  // position in the timeline
         );
       });
 
-      // Animate manifesto lines sequentially
-      gsap.utils.toArray<HTMLElement>('.philosophy__line').forEach((line, i) => {
-        gsap.fromTo(line,
+      // Animate manifesto lines across the full scroll
+      lines.forEach((line, i) => {
+        const lineStart = (i / lines.length) * totalPanels;
+        tl.fromTo(line,
           { opacity: 0, y: 30 },
-          {
-            opacity: 1, y: 0, duration: 0.8,
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: () => `top+=${i * 25}% top`,
-              end: () => `top+=${i * 25 + 15}% top`,
-              scrub: true,
-            },
-          }
+          { opacity: 1, y: 0, duration: 0.5 },
+          lineStart
         );
       });
     }, sectionRef);
