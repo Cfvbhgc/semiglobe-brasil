@@ -22,13 +22,7 @@ function App() {
       <Navigation lang={lang} onToggleLang={toggleLang} />
       <Hero lang={lang} />
       <About lang={lang} />
-      <div className="divider-photo">
-        <img src="/images/divider-1.jpg" alt="" loading="lazy" />
-      </div>
       <Products lang={lang} />
-      <div className="divider-photo">
-        <img src="/images/divider-2.jpg" alt="" loading="lazy" />
-      </div>
       <Philosophy lang={lang} />
       <Contact lang={lang} />
       <Footer lang={lang} />

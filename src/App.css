@@ -497,6 +497,7 @@ a {
 
 .philosophy--mobile {
   height: auto;
+  min-height: 60vh;
 }
 
 .philosophy__backgrounds {
@@ -505,8 +506,12 @@ a {
 }
 
 .philosophy--mobile .philosophy__backgrounds {
-  position: relative;
-  height: 300px;
+  position: absolute;
+  inset: 0;
+}
+
+.philosophy--mobile .philosophy__bg-panel {
+  background-attachment: scroll;
 }
 
 .philosophy__bg-panel {
@@ -514,6 +519,7 @@ a {
   inset: 0;
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
   will-change: opacity;
 }
 
@@ -528,7 +534,7 @@ a {
 .philosophy__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(26, 15, 10, 0.75);
+  background: linear-gradient(rgba(26, 15, 10, 0.7), rgba(26, 15, 10, 0.85));
 }
 
 .philosophy__content {
@@ -542,6 +548,7 @@ a {
   padding: clamp(2rem, 4vw, 4rem);
   max-width: 900px;
   margin: 0 auto;
+  color: #f5efe6;
 }
 
 .philosophy--desktop .philosophy__content {

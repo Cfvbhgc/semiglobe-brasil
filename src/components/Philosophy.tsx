@@ -11,9 +11,9 @@ interface PhilosophyProps {
 
 // Background images that rotate while text stays pinned (desktop only)
 const bgImages = [
+  '/images/divider-2.jpg',
   '/images/brazil-landscape-1.jpg',
   '/images/brazil-landscape-2.jpg',
-  '/images/plantation.jpg',
 ];
 
 // Philosophy pin section — pinned on desktop, stacked on mobile
