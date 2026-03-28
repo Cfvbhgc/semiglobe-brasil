@@ -1,42 +1,38 @@
 # Semiglobe Brasil
 
-Premium landing page for a luxury Brazilian coffee and lifestyle brand.
+Премиум лендинг бразильского бренда кофе и lifestyle-продуктов.
 
-## Features
+## Возможности
 
-- Fullscreen hero with animated gradient background and parallax scroll effect
-- Brand story section with GSAP scroll-triggered fade-in animations
-- Horizontal-scrolling product showcase with pinned scroll behavior
-- Philosophy section with sticky positioning and transitioning background images
-- Elegant contact form with animated floating labels
-- Language toggle (Portuguese / English) with full bilingual copy
-- Responsive mobile-first design
+- Полноэкранный hero с анимированными световыми полосами и параллакс-эффектом
+- История бренда с GSAP-анимациями при скролле
+- Горизонтальная прокрутка каталога продуктов (GSAP ScrollTrigger pin)
+- Секция философии с фиксированным текстом и сменяющимися фоновыми изображениями
+- Контактная форма с анимированными полями
+- Переключатель языка (португальский / английский)
+- Адаптивный дизайн под мобильные устройства
 
-## Tech Stack
+## Технологии
 
-- **React 18** with TypeScript
-- **GSAP** with ScrollTrigger for scroll-based animations
-- **Framer Motion** for component transitions and entrance animations
-- **Google Fonts** — Playfair Display (headings) + DM Sans (body)
-- **Pexels API** images for Brazilian coffee and lifestyle photography
+- React 18 + TypeScript
+- GSAP + ScrollTrigger — scroll-анимации, параллакс, горизонтальный скролл
+- Framer Motion — анимации переходов
+- Google Fonts: Syne (заголовки) + Instrument Serif (цитаты) + DM Sans (текст)
 
-## Color Palette
+## Дизайн
 
-| Color       | Hex       |
-|-------------|-----------|
-| Gold        | `#d4a853` |
-| Deep Green  | `#1a3a2a` |
-| Dark Green  | `#0d1b14` |
-| Cream       | `#f5f0e8` |
+- Тёмный шоколад: `#1a0f0a`
+- Тёплое золото: `#c9a96e`
+- Кремовый: `#f5efe6`
 
-## Getting Started
+## Запуск
 
 ```bash
 npm install
 npm start
 ```
 
-## Build
+## Сборка
 
 ```bash
 npm run build
